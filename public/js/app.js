@@ -43,24 +43,27 @@ const firebaseConfig = {
   const db = getFirestore(app);
 
 
-  const docRef = doc(db, "ytfmov", "tt0118680");
+  //const docRef = doc(db, "ytfmov", "tt0118680");
   const docAllRef = collection(db, "ytfmov");
-  const docSnap = await getDoc(docRef);
+  ///const docSnap = await getDoc(docRef);
   //const docAll = await db.collection('ytfmov').get();
-  const q = query(collection(db, "cities"),limit(20));
-  const docAll = await getDocs(docAllRef);
-  //const docAll = await getDocs(q);
+  const q = query(collection(db, "ytfmov"),limit(20));
+  //all data
+ // const docAll = await getDocs(docAllRef);
+ //limit 20
+  const docAll = await getDocs(q);
   
-  if (docSnap.exists()) {
-    console.log("Document data:", docSnap.data());
+  //if (docAll.exists()) {
+   // if (!!docAll.length) {
+   // console.log("Document data:", docSnap.data());
 
     console.log("all:",docAll.docs.map(d=>d.data()));
     //docAll.docs.forEach(d=>document.body.insertAdjacentHTML('beforeend',getDiv(d.data())));
     docAll.docs.forEach(d=>document.getElementById("cards").insertAdjacentHTML('beforeend',getDiv(d.data())));
-  } else {
+  /*} else {
     // docSnap.data() will be undefined in this case
     console.log("No such document!");
-  }
+  }*/
 
   function getDiv(mov){
    //return  "<div class=\"parent\"> <div class=\"img\"><a href=\"https://www.youtube.com/watch?v="+mov.yt+"&t="+mov.tplus+"\"><img src="+mov.poster_path+" /></a></div><div class=\"text\">"+
